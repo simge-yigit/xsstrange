@@ -29,7 +29,8 @@
         "cookie-innerhtml",
         "window-name-eval",
         "window-name-innerhtml",
-        "window-name-documentwrite"
+        "window-name-documentwrite",
+        "postmessage-insecure-regex"
       ],
       "resources": []
     }
@@ -57,7 +58,8 @@
         "php-search-form",
         "js-eval",
         "js-quoted",
-        "js-unquoted"
+        "js-unquoted",
+        "js-single-quoted"
       ],
       "resources": []
     }

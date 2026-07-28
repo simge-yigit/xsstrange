@@ -1,0 +1,21 @@
+{
+    "title": "PHP JavaScript Single-Quoted String",
+    "description": "Reflects the q parameter from PHP directly inside a single-quoted JavaScript string literal, with no output encoding.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'guest';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>PHP to JavaScript Single-Quoted String</h3>\n    <p>The <code>q</code> parameter is reflected inside a <b>single-quoted</b> JavaScript string.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <script>\n        // INJECTION POINT: your input lands between the single quotes.\n        var user = '<?php echo $input; ?>';\n        document.getElementById('greeting').textContent = 'Welcome back, ' + user + '!';\n    </script>\n\n    <p id='greeting'></p>\n    <p>Terminate the single-quoted string, run your own JavaScript, then keep the script valid.</p>\n</body>\n</html>",
+    "objectives": [
+        "Terminate the single-quoted string that wraps the q value with a single quote.",
+        "Inject and execute your own JavaScript, e.g. alert(document.domain).",
+        "Keep the remaining script syntactically valid (comment out or absorb the trailing quote)."
+    ],
+    "hints": [
+        "The context is: var user = '[INPUT]'; produced by PHP.",
+        "A double quote won't help here — the delimiter is a single quote.",
+        "Break the string, add your payload, then comment out the rest: '; alert(document.domain);//",
+        "Or use the arithmetic form that needs no comment: '-alert(document.domain)-'"
+    ]
+}
