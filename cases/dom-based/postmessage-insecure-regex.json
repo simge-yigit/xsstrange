@@ -1,0 +1,21 @@
+{
+  "title": "PostMessage Insecure Regex Origin Check",
+  "description": "A message receiver validates event.origin with an unanchored regex (a substring match) and writes event.data into the DOM via innerHTML. Any origin that merely contains the trusted string is accepted.",
+  "objectives": [
+    "Identify the message event handler and the origin allow-list it relies on.",
+    "Explain why the regex /trusted-widget\\.com/ accepts an attacker-controlled origin.",
+    "Deliver a payload through event.data that executes JavaScript via the innerHTML sink."
+  ],
+  "hints": [
+    "The origin check is /trusted-widget\\.com/.test(event.origin) — it is unanchored, so it is really a substring match.",
+    "An origin such as https://trusted-widget.com.attacker.example satisfies that regex.",
+    "innerHTML will not run a bare <script>; use a self-firing element, e.g. <img src=x onerror=alert(document.domain)>.",
+    "Simulate the attacker's origin from DevTools: window.dispatchEvent(new MessageEvent('message', { origin: 'https://trusted-widget.com.attacker.example', data: '<img src=x onerror=alert(document.domain)>' }))"
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>Trusted Widget Receiver</h3><p>This page is meant to accept <code>postMessage</code> data only from <b>https://trusted-widget.com</b>.</p><div id='widget-output' style='border:1px dashed #555; padding:10px;'>Waiting for a message from the trusted widget...</div><script>\n// Intended sender: https://trusted-widget.com\n// INSECURE origin check: an unanchored regex behaves like a substring match.\n// It returns true for ANY origin that merely CONTAINS 'trusted-widget.com', e.g.\n//   https://trusted-widget.com.attacker.example   (attacker-controlled suffix)\nfunction isOriginTrusted(origin){return /trusted-widget\\.com/.test(origin);}\nwindow.addEventListener('message', function (event) {\n  if (!isOriginTrusted(event.origin)) { console.warn('Rejected message from origin:', event.origin); return; }\n  // Vulnerable SINK: attacker-controlled data written as HTML.\n  document.getElementById('widget-output').innerHTML = event.data;\n});\n</script>"
+}
