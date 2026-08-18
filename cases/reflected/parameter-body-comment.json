@@ -1,0 +1,21 @@
+{
+    "title": "Parameter - Body HTML Comment",
+    "description": "The parameter is echoed inside an HTML comment in the HTML BODY. The attacker must break out of the comment to inject executable content.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "parameter-body-comment",
+
+    "objectives": [
+        "Break out of the HTML comment context using <code>--&gt;</code>.",
+        "Inject a script tag after escaping the comment.",
+        "Understand how HTML comments can be exploited if user input is reflected inside them."
+    ],
+
+    "hints": [
+        "The input is placed inside <code>&lt;!-- [INPUT] --&gt;</code>.",
+        "HTML comments end with <code>--&gt;</code>. Close the comment first.",
+        "Try: <code>--&gt;&lt;script&gt;alert(1)&lt;/script&gt;&lt;!--</code>"
+    ]
+}

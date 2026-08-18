@@ -1,0 +1,21 @@
+{
+    "title": "Parameter - Attribute Unquoted",
+    "description": "The parameter is echoed in an HTML attribute, unquoted. i.e. <code>&lt;div data-value=%q&gt;</code>. The attacker can inject new attributes or event handlers by using a space.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "parameter-attribute-unquoted",
+
+    "objectives": [
+        "Inject a new attribute by adding a space to break out of the current value.",
+        "Add an event handler attribute like <code>onmouseover</code> or <code>onfocus</code>.",
+        "Understand the difference between quoted and unquoted attribute injection."
+    ],
+
+    "hints": [
+        "The context is: <code>&lt;div data-value=[INPUT]&gt;</code> with no quotes.",
+        "A space character ends the attribute value and allows new attributes.",
+        "Try: <code>x onfocus=alert(1) autofocus tabindex=1</code>"
+    ]
+}

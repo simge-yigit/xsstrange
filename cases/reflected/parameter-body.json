@@ -1,0 +1,21 @@
+{
+    "title": "Parameter - Body",
+    "description": "The parameter is echoed within the main BODY tag. No server-side escaping is performed.",
+    "category": "reflected",
+    "difficulty": "Beginner",
+    "risk": "High",
+    "status": "Active",
+    "type": "parameter-body",
+
+    "objectives": [
+        "Inject HTML tags directly into the page body.",
+        "Execute JavaScript via a <code>&lt;script&gt;</code> tag injection.",
+        "Understand why unescaped output in the body context is dangerous."
+    ],
+
+    "hints": [
+        "Your input appears directly inside <code>&lt;body&gt;</code>. Any HTML you type will be rendered.",
+        "Try injecting: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>",
+        "You can also use event handlers: <code>&lt;img src=x onerror=alert(1)&gt;</code>"
+    ]
+}

@@ -59,7 +59,12 @@
         "js-eval",
         "js-quoted",
         "js-unquoted",
-        "js-single-quoted"
+        "js-single-quoted",
+        "parameter-body",
+        "parameter-title",
+        "parameter-body-comment",
+        "parameter-attribute-unquoted",
+        "parameter-attribute-double-quoted"
       ],
       "resources": []
     }

@@ -1,0 +1,21 @@
+{
+    "title": "Parameter - Attribute Double Quoted",
+    "description": "The parameter is echoed in an HTML attribute, double quoted. i.e. <code>&lt;div data-value=\"%q\"&gt;</code>. The attacker must first break out of the double quotes.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "parameter-attribute-double-quoted",
+
+    "objectives": [
+        "Break out of the double-quoted attribute value.",
+        "Inject a new event handler attribute after escaping the quotes.",
+        "Understand how quoting affects the difficulty of attribute-based XSS."
+    ],
+
+    "hints": [
+        "The context is: <code>&lt;div data-value=\"[INPUT]\"&gt;</code>.",
+        "You need a double quote to close the attribute, then inject new attributes.",
+        "Try: <code>\" onfocus=\"alert(1)\" autofocus tabindex=\"1</code>"
+    ]
+}

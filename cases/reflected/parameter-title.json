@@ -1,0 +1,21 @@
+{
+    "title": "Parameter - Title",
+    "description": "The parameter is echoed within the TITLE tag. The attacker must break out of the title context to execute scripts.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "parameter-title",
+
+    "objectives": [
+        "Break out of the <code>&lt;title&gt;</code> tag to inject HTML.",
+        "Execute JavaScript by closing the title tag and injecting a script.",
+        "Understand how injection in non-visible HTML elements can still lead to XSS."
+    ],
+
+    "hints": [
+        "The input is placed inside <code>&lt;title&gt;[INPUT]&lt;/title&gt;</code>.",
+        "Close the title tag first, then inject your payload.",
+        "Try: <code>&lt;/title&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code>"
+    ]
+}
