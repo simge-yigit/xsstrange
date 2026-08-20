@@ -5,14 +5,13 @@
     "difficulty": "Medium",
     "risk": "High",
     "status": "Active",
-    "type": "parameter-body-comment",
-
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'This is a comment';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Body HTML Comment</h3>\n    <p>The <code>q</code> parameter is echoed inside an HTML comment in the body.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output (hidden in HTML comment — view page source):</p>\n        <!-- INJECTION POINT: echoes inside HTML comment -->\n        <!-- <?php echo $input; ?> -->\n        <p style=\"color: #666; font-style: italic;\">The input is inside an HTML comment. Right-click → View Page Source to see it.</p>\n    </div>\n</body>\n</html>",
     "objectives": [
         "Break out of the HTML comment context using <code>--&gt;</code>.",
         "Inject a script tag after escaping the comment.",
         "Understand how HTML comments can be exploited if user input is reflected inside them."
     ],
-
     "hints": [
         "The input is placed inside <code>&lt;!-- [INPUT] --&gt;</code>.",
         "HTML comments end with <code>--&gt;</code>. Close the comment first.",

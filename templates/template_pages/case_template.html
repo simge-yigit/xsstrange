@@ -142,7 +142,7 @@
                     {{ description }}
                 </div>
 
-                {% if type and ((type|lower).startswith('css') or (type|lower).startswith('parameter-')) %}
+                {% if type and (type|lower).startswith('css') %}
                 <div class="interaction-box">
                     <h4 style="margin-top: 0; margin-bottom: 15px; display:flex; align-items:center; justify-content:space-between;">
                         <span><i class="fas fa-flask"></i> Test Your Payload</span>
@@ -174,7 +174,7 @@
                     
                     <div class="edu-note">
                         <i class="fas fa-info-circle" style="color: #007bff; margin-right: 5px;"></i> 
-                        <strong>How it works:</strong> The text you type above is appended to the URL as a GET parameter (<code>?q=...</code>). The server then takes this parameter and inserts it into the HTML below without any escaping.
+                        <strong>How it works:</strong> The text you type above is appended to the URL as a GET parameter (<code>?q=...</code>). The server then takes this parameter and inserts it into the CSS code below.
                     </div>
                 </div>
                 {% endif %}
@@ -227,65 +227,6 @@
                         </style>
 
                         <p id="cssFontTarget">This text will use the injected font-family.</p>
-
-                    {% elif type == "parameter-body" %}
-                        <h3>Body Injection</h3>
-                        <p>The <code>q</code> parameter is echoed directly within the <code>&lt;body&gt;</code> tag. No escaping is applied.</p>
-                        <p>Context: <code>&lt;body&gt; [INPUT] &lt;/body&gt;</code></p>
-
-                        <div style="margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);">
-                            <p style="color: #888; font-size: 0.85em; margin-bottom: 10px;">⬇️ Reflected output:</p>
-                            {{ request.args.get('q', 'Hello World') | safe }}
-                        </div>
-
-                    {% elif type == "parameter-title" %}
-                        <h3>Title Tag Injection</h3>
-                        <p>The <code>q</code> parameter is echoed within the <code>&lt;title&gt;</code> tag. Check the browser tab to see the reflected value.</p>
-                        <p>Context: <code>&lt;title&gt; [INPUT] &lt;/title&gt;</code></p>
-
-                        <title>{{ request.args.get('q', 'XSStrange - Title Injection') | safe }}</title>
-
-                        <div style="margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);">
-                            <p style="color: #888; font-size: 0.85em; margin-bottom: 10px;">⬇️ The parameter is injected into the <code>&lt;title&gt;</code> tag above. Check the browser tab title.</p>
-                            <p>Current title value: <code>{{ request.args.get('q', 'XSStrange - Title Injection') }}</code></p>
-                        </div>
-
-                    {% elif type == "parameter-body-comment" %}
-                        <h3>HTML Comment Injection</h3>
-                        <p>The <code>q</code> parameter is echoed inside an HTML comment in the body. The content is not visible, but it is in the source code.</p>
-                        <p>Context: <code>&lt;!-- [INPUT] --&gt;</code></p>
-
-                        <div style="margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);">
-                            <p style="color: #888; font-size: 0.85em; margin-bottom: 10px;">⬇️ Reflected output (hidden in HTML comment — view page source):</p>
-                            <!-- {{ request.args.get('q', 'This is a comment') | safe }} -->
-                            <p style="color: #666; font-style: italic;">The input is inside an HTML comment. Right-click → View Page Source to see it.</p>
-                        </div>
-
-                    {% elif type == "parameter-attribute-unquoted" %}
-                        <h3>Unquoted Attribute Injection</h3>
-                        <p>The <code>q</code> parameter is echoed in an HTML attribute without quotes.</p>
-                        <p>Context: <code>&lt;div data-value=[INPUT]&gt;</code></p>
-
-                        <div style="margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);">
-                            <p style="color: #888; font-size: 0.85em; margin-bottom: 10px;">⬇️ Reflected output (inspect the element below):</p>
-                            <div id="attrTarget" data-value={{ request.args.get('q', 'default') | safe }} style="padding: 15px; border: 1px solid #444; border-radius: 6px; background: rgba(0,255,157,0.05);">
-                                This element has <code>data-value={{ request.args.get('q', 'default') }}</code> (unquoted attribute).
-                                <br><em>Inspect this element to see the injection point.</em>
-                            </div>
-                        </div>
-
-                    {% elif type == "parameter-attribute-double-quoted" %}
-                        <h3>Double-Quoted Attribute Injection</h3>
-                        <p>The <code>q</code> parameter is echoed in a double-quoted HTML attribute.</p>
-                        <p>Context: <code>&lt;div data-value="[INPUT]"&gt;</code></p>
-
-                        <div style="margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);">
-                            <p style="color: #888; font-size: 0.85em; margin-bottom: 10px;">⬇️ Reflected output (inspect the element below):</p>
-                            <div id="attrQuotedTarget" data-value="{{ request.args.get('q', 'default') | safe }}" style="padding: 15px; border: 1px solid #444; border-radius: 6px; background: rgba(0,255,157,0.05);">
-                                This element has <code>data-value="{{ request.args.get('q', 'default') }}"</code> (double-quoted attribute).
-                                <br><em>Inspect this element to see the injection point.</em>
-                            </div>
-                        </div>
 
                     {% elif body %}
                         {{ body | safe }}
