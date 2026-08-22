@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Body",
+    "description": "The parameter is echoed within the main BODY tag. No server-side escaping is performed.",
+    "category": "reflected",
+    "difficulty": "Beginner",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'Hello World';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Body Injection</h3>\n    <p>The <code>q</code> parameter is echoed directly within the <code>&lt;body&gt;</code> without any escaping.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div class=\"result\" style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output:</p>\n        <!-- INJECTION POINT: echoes directly in body -->\n        <?php echo $input; ?>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject HTML tags directly into the page body.",
+        "Execute JavaScript via a <code>&lt;script&gt;</code> tag injection.",
+        "Understand why unescaped output in the body context is dangerous."
+    ],
+    "hints": [
+        "Your input appears directly inside <code>&lt;body&gt;</code>. Any HTML you type will be rendered.",
+        "Try injecting: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>",
+        "You can also use event handlers: <code>&lt;img src=x onerror=alert(1)&gt;</code>"
+    ]
+}

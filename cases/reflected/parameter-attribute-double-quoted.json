@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Attribute Double Quoted",
+    "description": "The parameter is echoed in an HTML attribute, double quoted. i.e. <code>&lt;div data-value=\"%q\"&gt;</code>. The attacker must first break out of the double quotes.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'default';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Attribute Double Quoted</h3>\n    <p>The <code>q</code> parameter is echoed in a double-quoted HTML attribute.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output (inspect the element below):</p>\n        <!-- INJECTION POINT: double-quoted attribute -->\n        <div id=\"attrQuotedTarget\" data-value=\"<?php echo $input; ?>\" style=\"padding: 15px; border: 1px solid #444; border-radius: 6px; background: rgba(0,255,157,0.05);\">\n            This element has a double-quoted <code>data-value</code> attribute.\n            <br><em>Inspect this element to see the injection point.</em>\n        </div>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Break out of the double-quoted attribute value.",
+        "Inject a new event handler attribute after escaping the quotes.",
+        "Understand how quoting affects the difficulty of attribute-based XSS."
+    ],
+    "hints": [
+        "The context is: <code>&lt;div data-value=\"[INPUT]\"&gt;</code>.",
+        "You need a double quote to close the attribute, then inject new attributes.",
+        "Try: <code>\" onfocus=\"alert(1)\" autofocus tabindex=\"1</code>"
+    ]
+}
