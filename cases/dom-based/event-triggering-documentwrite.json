@@ -1,0 +1,18 @@
+{
+  "title": "Event triggering - documentWrite",
+  "description": "A DOM event listener reads data from an event or input and writes it directly to the document using document.write().",
+  "objectives": [
+    "Trigger the click event handler.",
+    "Trace how the input value is written to the document via document.write().",
+    "Execute JavaScript via HTML injection."
+  ],
+  "hints": [
+    "Input an HTML payload like <img src=x onerror=alert(1)> and click Render Content."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>Event Listener (document.write sink)</h3><p>Clicking the button writes the input content directly to the document using <code>document.write()</code>.</p><div style='margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px;'><input type='text' id='rawInput' placeholder='Enter HTML/script...' value='<img src=x onerror=alert(1)>' style='padding: 10px; width: 60%; background: #1a1a1a; color: #00ff9d; border: 1px solid #444; border-radius: 4px;'> <button id='writeBtn' style='padding: 10px 20px; background: #e94560; color: #fff; border: none; border-radius: 4px; cursor: pointer;'>Render Content</button></div><script>\ndocument.getElementById('writeBtn').addEventListener('click', function() {\n    const payload = document.getElementById('rawInput').value;\n    document.write('<div>Rendered via document.write: ' + payload + '</div>');\n});\n</script>"
+}

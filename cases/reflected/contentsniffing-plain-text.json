@@ -1,0 +1,19 @@
+{
+    "title": "ContentSniffing - Inserts the parameter in a plain/text page.",
+    "description": "Inserts the parameter in a plain/text page without X-Content-Type-Options nosniff.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "Medium",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'Plain text message';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Content Sniffing - Plain Text</h3>\n    <p>The parameter is echoed directly into a text response without proper output encoding or nosniff headers.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Plain text output:</p>\n        <!-- INJECTION POINT: plain text reflection -->\n        <pre><?php echo $input; ?></pre>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject HTML markup into a text body.",
+        "Trigger browser MIME-sniffing or tag rendering.",
+        "Execute JavaScript."
+    ],
+    "hints": [
+        "Echoes raw input into pre/text.",
+        "Inject: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

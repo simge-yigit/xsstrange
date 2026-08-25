@@ -1,0 +1,20 @@
+{
+    "title": "URL - HREF",
+    "description": "Assigns the parameter to an HREF property of an A tag. Requires clicking to trigger.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "Medium",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : '#';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>URL - HREF Property</h3>\n    <p>The <code>q</code> parameter is placed directly into the <code>href</code> attribute of an anchor <code>&lt;a&gt;</code> tag.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Click the link below:</p>\n        <!-- INJECTION POINT: anchor href -->\n        <a href=\"<?php echo $input; ?>\" style=\"color: #00ff9d; font-size: 1.1em; text-decoration: underline;\">\n            Click here to follow the link (URL: <?php echo htmlspecialchars($input, ENT_QUOTES, 'UTF-8'); ?>)\n        </a>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject a <code>javascript:</code> pseudo-protocol URI into the href attribute.",
+        "Click the link to execute JavaScript.",
+        "Understand pseudo-protocol execution in link contexts."
+    ],
+    "hints": [
+        "Context: <code>&lt;a href=\"[INPUT]\"&gt;</code>.",
+        "Try injecting: <code>javascript:alert(1)</code>.",
+        "Click the link to trigger execution."
+    ]
+}

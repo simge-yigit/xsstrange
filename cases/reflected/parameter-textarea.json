@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Textarea",
+    "description": "The parameter is echoed in a TEXTAREA tag's CDATA. In this case, no parsing of the payload happens until </textarea> closes the element.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'Sample textarea text';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Textarea</h3>\n    <p>The <code>q</code> parameter is echoed inside a <code>&lt;textarea&gt;</code> element.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected textarea:</p>\n        <!-- INJECTION POINT: inside textarea body -->\n        <textarea rows=\"4\" style=\"width: 100%; background: #1a1a1a; color: #fff; border: 1px solid #444; border-radius: 6px; padding: 10px;\"><?php echo $input; ?></textarea>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Close the <code>&lt;textarea&gt;</code> tag using <code>&lt;/textarea&gt;</code>.",
+        "Inject and execute JavaScript via HTML tags.",
+        "Understand why raw HTML inside a textarea does not execute until the textarea is closed."
+    ],
+    "hints": [
+        "HTML tags inside <code>&lt;textarea&gt;</code> are treated as raw text.",
+        "Close the textarea first: <code>&lt;/textarea&gt;</code>.",
+        "Inject your payload: <code>&lt;/textarea&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

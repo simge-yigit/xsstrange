@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Attribute unquoted - Blocks Double",
+    "description": "The parameter is echoed inside an unquoted HTML attribute of a tag. Payloads containing double quotes are filtered.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$raw = isset($_GET['q']) ? $_GET['q'] : 'default';\n$input = str_replace('\"', '', $raw);\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Attribute Unquoted (Blocks Double Quotes)</h3>\n    <p>The parameter is placed in an unquoted attribute. Double quotes (<code>\"</code>) are stripped, but spaces are allowed.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected unquoted attribute:</p>\n        <!-- INJECTION POINT: unquoted attribute with double quote filter -->\n        <div id=\"unquotedFilterTarget\" data-val=<?php echo $input; ?> style=\"padding: 15px; border: 1px solid #444; border-radius: 6px; background: rgba(0,255,157,0.05);\">\n            Unquoted attribute element.\n            <br><em>Inspect this element to see the injected attributes.</em>\n        </div>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject new attributes using a space without needing double quotes.",
+        "Add event handler attributes like <code>onfocus=alert(1) autofocus</code>.",
+        "Execute arbitrary JavaScript."
+    ],
+    "hints": [
+        "The attribute is unquoted (<code>data-val=[INPUT]</code>).",
+        "A space character breaks out of the attribute value.",
+        "Try: <code>x onfocus=alert(1) autofocus</code>."
+    ]
+}

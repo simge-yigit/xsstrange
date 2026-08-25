@@ -1,0 +1,19 @@
+{
+  "title": "PostMessage via eval",
+  "description": "Receives messages via window postMessage without origin verification and executes the message content directly inside eval().",
+  "objectives": [
+    "Identify the postMessage event listener in the page.",
+    "Notice the absence of origin check on event.origin.",
+    "Send a message that executes JavaScript via eval()."
+  ],
+  "hints": [
+    "The page listens on window.addEventListener('message', ...).",
+    "From DevTools console or an attacker iframe: window.postMessage('alert(1)', '*')."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>PostMessage Receiver (eval sink)</h3><p>This page listens for <code>message</code> events and passes <code>event.data</code> directly into <code>eval()</code> without checking <code>event.origin</code>.</p><div style='margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px;'><div id='status'>Waiting for postMessage...</div></div><script>\nwindow.addEventListener('message', function(event) {\n    try {\n        eval(event.data);\n        document.getElementById('status').innerText = 'Executed message: ' + event.data;\n    } catch(e) {\n        document.getElementById('status').innerText = 'Error: ' + e.message;\n    }\n});\n</script>"
+}

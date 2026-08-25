@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Textarea Attribute Value",
+    "description": "The parameter is used as an attribute value, i.e. <textarea attribute=%q>.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'Type comments here...';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Textarea Attribute Value</h3>\n    <p>The <code>q</code> parameter is echoed inside an attribute of a <code>&lt;textarea&gt;</code> element.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected textarea with attribute:</p>\n        <!-- INJECTION POINT: textarea placeholder attribute -->\n        <textarea placeholder=\"<?php echo $input; ?>\" rows=\"4\" style=\"width: 100%; background: #1a1a1a; color: #fff; border: 1px solid #444; border-radius: 6px; padding: 10px;\"></textarea>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Escape the attribute quotes on the <code>&lt;textarea&gt;</code> element.",
+        "Inject event handler attributes or close the opening tag.",
+        "Execute arbitrary JavaScript."
+    ],
+    "hints": [
+        "Context: <code>&lt;textarea placeholder=\"[INPUT]\"&gt;</code>.",
+        "Break out with double quotes: <code>\" autofocus onfocus=\"alert(1)</code>.",
+        "Or close the tag: <code>\">&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

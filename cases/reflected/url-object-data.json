@@ -1,0 +1,20 @@
+{
+    "title": "URL - Object DATA",
+    "description": "Assigns the parameter to the DATA property of an OBJECT tag. The parameter must contain an executable resource.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'about:blank';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>URL - Object DATA Attribute</h3>\n    <p>The <code>q</code> parameter is assigned directly to the <code>data</code> attribute of an <code>&lt;object&gt;</code> tag.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Embedded object:</p>\n        <!-- INJECTION POINT: object data attribute -->\n        <object data=\"<?php echo $input; ?>\" type=\"text/html\" width=\"100%\" height=\"120\" style=\"border: 1px solid #444; border-radius: 6px; background: #fff;\"></object>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject a <code>javascript:</code> URI or a <code>data:text/html</code> payload into the object data attribute.",
+        "Execute arbitrary JavaScript through the embedded object.",
+        "Understand object tag XSS vectors."
+    ],
+    "hints": [
+        "Context: <code>&lt;object data=\"[INPUT]\" type=\"text/html\"&gt;</code>.",
+        "Try: <code>javascript:alert(1)</code> or <code>data:text/html,<script>alert(1)</script></code>.",
+        "Or break out: <code>\"><script>alert(1)</script></code>."
+    ]
+}

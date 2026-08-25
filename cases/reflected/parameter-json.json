@@ -1,0 +1,19 @@
+{
+    "title": "Parameter - JSON",
+    "description": "Inserts the parameter inside a JSON object. Returns an HTML content type. Note that this allows browsers to execute scripts.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'sample';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - JSON in HTML Response</h3>\n    <p>The <code>q</code> parameter is reflected directly inside a raw JSON string served with an <code>text/html</code> content-type.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Output:</p>\n        <!-- INJECTION POINT: JSON structure in HTML -->\n        <pre>{\"status\": \"ok\", \"query\": \"<?php echo $input; ?>\"}</pre>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject HTML tags into the JSON output rendered in an HTML document.",
+        "Execute JavaScript using injected elements.",
+        "Understand why serving JSON with text/html content-type leads to XSS."
+    ],
+    "hints": [
+        "The content type is HTML, so any HTML tags will be parsed by the browser.",
+        "Try: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> or <code>&lt;img src=x onerror=alert(1)&gt;</code>."
+    ]
+}

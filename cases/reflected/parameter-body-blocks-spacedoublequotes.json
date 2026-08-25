@@ -1,0 +1,19 @@
+{
+    "title": "Parameter - Body - Blocks SpaceDoubleQuotes",
+    "description": "The parameter is echoed in the BODY tag, but any request containing space, double quotes is filtered.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$raw = isset($_GET['q']) ? $_GET['q'] : 'Hello';\n$input = str_replace(array(' ', '\"'), '', $raw);\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Body (Blocks Spaces &amp; Double Quotes)</h3>\n    <p>Spaces and double quotes (<code>\"</code>) are stripped from your input before reflection.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Filtered reflected output:</p>\n        <!-- INJECTION POINT: body with space/quote filter -->\n        <?php echo $input; ?>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Construct a payload without spaces or double quotes.",
+        "Use forward slashes <code>/</code> or alternative delimiters to separate attributes.",
+        "Execute arbitrary JavaScript."
+    ],
+    "hints": [
+        "Spaces and double quotes are removed.",
+        "Use slashes inside HTML tags: <code>&lt;svg/onload=alert(1)&gt;</code> or <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

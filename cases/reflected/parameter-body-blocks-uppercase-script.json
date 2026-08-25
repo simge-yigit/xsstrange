@@ -1,0 +1,19 @@
+{
+    "title": "Parameter - Body - Blocks uppercase script",
+    "description": "The parameter is echoed in the BODY tag, but any request containing a uppercase \"SCRIPT\" is filtered.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$raw = isset($_GET['q']) ? $_GET['q'] : 'Hello';\n$input = str_replace('<SCRIPT>', '', str_replace('</SCRIPT>', '', $raw));\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Body (Blocks Uppercase &lt;SCRIPT&gt;)</h3>\n    <p>The filter removes exact uppercase <code>&lt;SCRIPT&gt;</code> and <code>&lt;/SCRIPT&gt;</code> tags.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output:</p>\n        <!-- INJECTION POINT: body with uppercase script filter -->\n        <?php echo $input; ?>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Bypass the blacklist filter using lowercase or mixed-case tags (e.g. <code>&lt;script&gt;</code>).",
+        "Alternatively, use non-script tags with event handlers.",
+        "Execute arbitrary JavaScript."
+    ],
+    "hints": [
+        "The filter only checks uppercase <code>&lt;SCRIPT&gt;</code>.",
+        "Try lowercase: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

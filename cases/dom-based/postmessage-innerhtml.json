@@ -1,0 +1,19 @@
+{
+  "title": "PostMessage via innerHTML",
+  "description": "Receives messages via window postMessage without origin verification and assigns the payload to an element's innerHTML.",
+  "objectives": [
+    "Identify the postMessage event handler rendering into innerHTML.",
+    "Trigger script execution by posting HTML containing event handlers.",
+    "Understand postMessage DOM XSS vectors."
+  ],
+  "hints": [
+    "The page assigns event.data to document.getElementById('output').innerHTML.",
+    "Send a payload from DevTools: window.postMessage('<img src=x onerror=alert(1)>', '*')."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>PostMessage Receiver (innerHTML sink)</h3><p>This page listens for <code>message</code> events and renders <code>event.data</code> into the DOM via <code>innerHTML</code> without origin validation.</p><div style='margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px;'><div id='output'>Waiting for postMessage...</div></div><script>\nwindow.addEventListener('message', function(event) {\n    document.getElementById('output').innerHTML = event.data;\n});\n</script>"
+}

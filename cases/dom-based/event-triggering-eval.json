@@ -1,0 +1,18 @@
+{
+  "title": "Event triggering - eval",
+  "description": "A custom event listener extracts user-provided payload data from the event detail and executes it using eval().",
+  "objectives": [
+    "Inspect the custom event listener on 'app-action'.",
+    "Trace how e.detail.command is passed into eval().",
+    "Dispatch an event with arbitrary JavaScript."
+  ],
+  "hints": [
+    "Use the input box or dispatch from DevTools: window.dispatchEvent(new CustomEvent('app-action', { detail: { command: 'alert(1)' } }))"
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>Custom Event Dispatcher (eval sink)</h3><p>This page triggers and listens for custom DOM events carrying payload data that is passed to <code>eval()</code>.</p><div style='margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px;'><input type='text' id='eventPayload' placeholder='Enter payload...' value='alert(1)' style='padding: 10px; width: 60%; background: #1a1a1a; color: #00ff9d; border: 1px solid #444; border-radius: 4px;'> <button id='triggerBtn' style='padding: 10px 20px; background: #e94560; color: #fff; border: none; border-radius: 4px; cursor: pointer;'>Dispatch Event</button></div><script>\nwindow.addEventListener('app-action', function(e) {\n    if (e.detail && e.detail.command) {\n        eval(e.detail.command);\n    }\n});\ndocument.getElementById('triggerBtn').addEventListener('click', function() {\n    const val = document.getElementById('eventPayload').value;\n    const customEvent = new CustomEvent('app-action', { detail: { command: val } });\n    window.dispatchEvent(customEvent);\n});\n</script>"
+}

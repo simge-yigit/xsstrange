@@ -1,0 +1,18 @@
+{
+  "title": "javascript:-URI - location.href",
+  "description": "Reads a destination URL from the query parameter or hash and sets window.location.href directly, allowing javascript: scheme execution.",
+  "objectives": [
+    "Identify how the target URL is read from query parameter 'target' or 'q'.",
+    "Trace the assignment to window.location.href upon clicking the button.",
+    "Supply a javascript: URI (e.g., javascript:alert(1)) to execute code."
+  ],
+  "hints": [
+    "Append ?target=javascript:alert(1) or ?q=javascript:alert(1) to the URL and click 'Go to URL'."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>Dynamic Navigation (location.href sink)</h3><p>The target URL is read from the <code>target</code> or <code>q</code> URL parameter and assigned directly to <code>window.location.href</code>.</p><div style='margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px;'><p>Target URL: <code id='currentUrl'>None</code></p><button id='redirectBtn' style='padding: 10px 20px; background: #e94560; color: #fff; border: none; border-radius: 4px; cursor: pointer;'>Go to URL</button></div><script>\nconst params = new URLSearchParams(window.location.search);\nconst target = params.get('target') || params.get('q') || 'javascript:alert(document.domain)';\ndocument.getElementById('currentUrl').innerText = target;\ndocument.getElementById('redirectBtn').addEventListener('click', function() {\n    window.location.href = target;\n});\n</script>"
+}
