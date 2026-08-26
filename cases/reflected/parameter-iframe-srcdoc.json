@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - iFrame srcdoc",
+    "description": "The parameter is used as an attribute value, i.e. <iframe srcdoc=%q>. The srcdoc attribute specifies the HTML content to show in the inline frame.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : '<h3>Inside iframe</h3>';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - iFrame srcdoc</h3>\n    <p>The <code>q</code> parameter is placed directly inside an <code>&lt;iframe srcdoc=\"...\"&gt;</code> attribute.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected iframe with srcdoc:</p>\n        <!-- INJECTION POINT: iframe srcdoc -->\n        <iframe srcdoc=\"<?php echo $input; ?>\" width=\"100%\" height=\"120\" style=\"border: 1px solid #444; border-radius: 6px; background: #fff;\"></iframe>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject HTML or JavaScript into the srcdoc document context.",
+        "Understand that srcdoc parses raw HTML within the iframe.",
+        "Execute JavaScript inside the iframe or escape the attribute."
+    ],
+    "hints": [
+        "Context: <code>&lt;iframe srcdoc=\"[INPUT]\"&gt;</code>.",
+        "Try HTML entities or direct scripts: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>.",
+        "Or break out of the srcdoc attribute using <code>\">&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

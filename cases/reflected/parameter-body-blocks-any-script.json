@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Body - Blocks any script",
+    "description": "The parameter is echoed in the BODY tag, but any request containing any case \"script\" is filtered.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$raw = isset($_GET['q']) ? $_GET['q'] : 'Hello';\n$input = preg_replace('/<\\s*\\/?\\s*script\\b[^>]*>/i', '', $raw);\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Body (Blocks Any Case &lt;script&gt;)</h3>\n    <p>All variations of <code>&lt;script&gt;</code> tags are filtered using a case-insensitive regex.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output:</p>\n        <!-- INJECTION POINT: body with regex script filter -->\n        <?php echo $input; ?>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Bypass the script tag filter by using alternative HTML elements (e.g. <code>&lt;img&gt;</code>, <code>&lt;svg&gt;</code>, <code>&lt;body&gt;</code>).",
+        "Attach inline event handlers like <code>onerror</code> or <code>onload</code>.",
+        "Execute arbitrary JavaScript without using script tags."
+    ],
+    "hints": [
+        "Script tags are completely filtered.",
+        "Try image event handler: <code>&lt;img src=x onerror=alert(1)&gt;</code>.",
+        "Or SVG: <code>&lt;svg onload=alert(1)&gt;</code>."
+    ]
+}

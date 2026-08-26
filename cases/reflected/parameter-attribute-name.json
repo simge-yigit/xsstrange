@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Attribute name",
+    "description": "The parameter is used as an attribute name, i.e. <foo %q-irrelevant>. The attacker can inject event handler attributes or close the tag.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'data-test';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Attribute Name Injection</h3>\n    <p>The <code>q</code> parameter is inserted as an attribute name inside an HTML element.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output (inspect the element below):</p>\n        <!-- INJECTION POINT: attribute name is user-controlled -->\n        <div <?php echo $input; ?>=irrelevant style=\"padding: 15px; border: 1px solid #444; border-radius: 6px; background: rgba(0,255,157,0.05);\">\n            This element has an attribute name set from <code>q</code>.\n            <br><em>Inspect this element to see the injection point.</em>\n        </div>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject arbitrary attributes such as event handlers (e.g. <code>autofocus onfocus=alert(1)</code>).",
+        "Alternatively, close the tag using <code>&gt;</code> and inject a new element.",
+        "Execute JavaScript through the injected attribute name context."
+    ],
+    "hints": [
+        "The context is <code>&lt;div [INPUT]=irrelevant&gt;</code>.",
+        "Use spaces to inject additional attributes: <code>autofocus onfocus=alert(1) x</code>.",
+        "Or close the tag: <code>&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

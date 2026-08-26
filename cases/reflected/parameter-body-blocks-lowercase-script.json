@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Body - Blocks lowercase script",
+    "description": "The parameter is echoed in the BODY tag, but any request containing a lowercase \"script\" is filtered.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$raw = isset($_GET['q']) ? $_GET['q'] : 'Hello';\n$input = str_replace('<script>', '', str_replace('</script>', '', $raw));\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Body (Blocks Lowercase &lt;script&gt;)</h3>\n    <p>The filter removes exact lowercase <code>&lt;script&gt;</code> and <code>&lt;/script&gt;</code> tags.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output:</p>\n        <!-- INJECTION POINT: body with lowercase script filter -->\n        <?php echo $input; ?>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Bypass the blacklist filter using uppercase or mixed-case tags (e.g. <code>&lt;SCRIPT&gt;</code>).",
+        "Alternatively, use non-script tags with event handlers (e.g. <code>&lt;img src=x onerror=alert(1)&gt;</code>).",
+        "Execute arbitrary JavaScript."
+    ],
+    "hints": [
+        "The filter only checks exact lowercase <code>&lt;script&gt;</code>.",
+        "Try uppercase: <code>&lt;SCRIPT&gt;alert(1)&lt;/SCRIPT&gt;</code>.",
+        "Or use: <code>&lt;img src=x onerror=alert(1)&gt;</code>."
+    ]
+}

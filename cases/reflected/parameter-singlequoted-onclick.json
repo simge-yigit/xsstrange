@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - singlequoted onclick",
+    "description": "The parameter is echoed in an HTML event handler attribute, single quoted, i.e. <div onclick='%q'>",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : \"console.log('clicked')\";\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Singlequoted onclick</h3>\n    <p>The <code>q</code> parameter is echoed inside a single-quoted <code>onclick</code> attribute.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Click the button below to trigger the event handler:</p>\n        <!-- INJECTION POINT: single-quoted onclick attribute -->\n        <button onclick='<?php echo $input; ?>' style=\"padding: 10px 20px; background: #e94560; color: #fff; border: none; border-radius: 4px; cursor: pointer;\">\n            Click Me (Single-Quoted onclick)\n        </button>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject JavaScript into the single-quoted onclick handler.",
+        "Break out of the single quotes to inject new attributes or tags.",
+        "Execute arbitrary JavaScript."
+    ],
+    "hints": [
+        "Context: <code>&lt;button onclick='[INPUT]'&gt;</code>.",
+        "Direct code: <code>alert(1)</code>.",
+        "Break out: <code>' autofocus onfocus='alert(1)</code>."
+    ]
+}

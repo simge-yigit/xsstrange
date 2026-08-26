@@ -1,0 +1,19 @@
+{
+    "title": "Form",
+    "description": "This XSS, in the BODY, only triggers on a POST. The page shows the HTML FORM needed to submit data.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_POST['q']) ? $_POST['q'] : (isset($_GET['q']) ? $_GET['q'] : '');\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Form - POST Reflected</h3>\n    <p>This XSS in the body only triggers when submitted via an HTTP POST request.</p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <form method=\"POST\" action=\"\">\n            <label for=\"q\" style=\"display: block; margin-bottom: 8px;\">Enter payload (POST):</label>\n            <input type=\"text\" id=\"q\" name=\"q\" value=\"<?php echo htmlspecialchars($input, ENT_QUOTES, 'UTF-8'); ?>\" style=\"padding: 10px; width: 60%; background: #1a1a1a; color: #00ff9d; border: 1px solid #444; border-radius: 4px;\">\n            <button type=\"submit\" style=\"padding: 10px 20px; background: #e94560; color: #fff; border: none; border-radius: 4px; cursor: pointer;\">Submit POST</button>\n        </form>\n\n        <?php if (!empty($input)): ?>\n        <div style=\"margin-top: 20px; padding: 15px; border: 1px solid #e94560; border-radius: 6px;\">\n            <p style=\"color: #888; font-size: 0.85em;\">⬇️ Reflected POST output:</p>\n            <!-- INJECTION POINT: POST body reflection -->\n            <?php echo $input; ?>\n        </div>\n        <?php endif; ?>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Submit a malicious payload via the POST form.",
+        "Observe that reflection occurs in the POST response body.",
+        "Execute arbitrary JavaScript."
+    ],
+    "hints": [
+        "The form uses method=\"POST\".",
+        "Type <code>&lt;script&gt;alert(1)&lt;/script&gt;</code> and click Submit POST."
+    ]
+}

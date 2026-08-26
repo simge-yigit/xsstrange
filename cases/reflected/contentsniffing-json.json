@@ -1,0 +1,19 @@
+{
+    "title": "ContentSniffing - Inserts the parameter inside a JSON object. Returns a JSON content type.",
+    "description": "Inserts the parameter inside a JSON object. Returns a JSON content type without X-Content-Type-Options: nosniff.",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "Medium",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'user';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Content Sniffing - JSON Endpoint</h3>\n    <p>The <code>q</code> parameter is placed inside a JSON response rendered without content sniffing protection headers.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Raw response:</p>\n        <code>{\"response\": \"<?php echo $input; ?>\", \"code\": 200}</code>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject HTML tags into the JSON structure.",
+        "Observe MIME-sniffing behavior in browsers when headers are missing.",
+        "Execute JavaScript."
+    ],
+    "hints": [
+        "Input is placed in a JSON string without proper encoding.",
+        "Inject: <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

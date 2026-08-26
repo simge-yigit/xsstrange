@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Tag name",
+    "description": "The parameter is used as a tag name, i.e. <%q>. The attacker controls the tag name and can inject attributes or close the tag.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'div';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Tag Name Injection</h3>\n    <p>The <code>q</code> parameter is used directly as the tag name of an HTML element.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output (element created with your tag name):</p>\n        <!-- INJECTION POINT: tag name is user-controlled -->\n        <<?php echo $input; ?> class=\"custom-element\">\n            Dynamic Tag Content\n        </<?php echo $input; ?>>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Supply a custom tag name that allows executing scripts (e.g., <code>script</code>) or inject event handlers.",
+        "Inject a payload such as <code>script>alert(1)</script</code> or <code>img src=x onerror=alert(1)></code>.",
+        "Understand how unvalidated HTML tag names can break DOM structure."
+    ],
+    "hints": [
+        "The syntax is <code>&lt;[INPUT] class=\"custom-element\"&gt;</code>.",
+        "You can type <code>script>alert(1)</script</code> to close the opening bracket and create a script tag.",
+        "Alternatively, try <code>img src=x onerror=alert(1)></code>."
+    ]
+}

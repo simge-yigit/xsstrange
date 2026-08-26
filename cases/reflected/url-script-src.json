@@ -1,0 +1,19 @@
+{
+    "title": "URL - Script SRC",
+    "description": "Assigns the parameter to the SRC property of a SCRIPT tag. The parameter must contain a script URL or data URI.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'data:text/javascript,console.log(\"script loaded\")';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>URL - Script SRC</h3>\n    <p>The <code>q</code> parameter is assigned to the <code>src</code> property of a <code>&lt;script&gt;</code> tag.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Dynamic script inclusion:</p>\n        <!-- INJECTION POINT: script src -->\n        <script src=<?php echo $input; ?>></script>\n        <code>Current src: <?php echo htmlspecialchars($input, ENT_QUOTES, 'UTF-8'); ?></code>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Provide a valid JavaScript payload via a data URI or external script URL.",
+        "Execute JavaScript in the page context.",
+        "Understand script inclusion risks."
+    ],
+    "hints": [
+        "Context: <code>&lt;script src=[INPUT]&gt;</code>.",
+        "Try: <code>data:text/javascript,alert(1)</code>."
+    ]
+}

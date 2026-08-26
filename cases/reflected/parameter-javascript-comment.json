@@ -1,0 +1,19 @@
+{
+    "title": "Parameter - Javascript comment",
+    "description": "Inserts the parameter into a javascript comment, i.e. /* %q */",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'developer note';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Javascript Comment</h3>\n    <p>The <code>q</code> parameter is inserted directly inside a multi-line JavaScript block comment <code>/* ... */</code>.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Check the page source to view the injected comment:</p>\n        <script>\n            /* INJECTION POINT: inside block comment */\n            /* <?php echo $input; ?> */\n            console.log(\"Script executed.\");\n        </script>\n        <p>The comment is in the script block.</p>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Break out of the JavaScript comment block using <code>*/</code>.",
+        "Inject and execute valid JavaScript code.",
+        "Maintain valid JavaScript syntax."
+    ],
+    "hints": [
+        "Context: <code>/* [INPUT] */</code>.",
+        "Close the comment: <code>*/ alert(1); /*</code> or <code>*/ alert(1);//</code>."
+    ]
+}

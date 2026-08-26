@@ -1,0 +1,19 @@
+{
+    "title": "Parameter - NoScript",
+    "description": "The parameter is echoed in a NOSCRIPT tag's CDATA. In this case, no parsing of the payload happens unless </noscript> closes the tag.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'JavaScript is required to view this site.';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - NoScript</h3>\n    <p>The <code>q</code> parameter is echoed inside a <code>&lt;noscript&gt;</code> block.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output (inside noscript):</p>\n        <!-- INJECTION POINT: inside noscript tag -->\n        <noscript><?php echo $input; ?></noscript>\n        <p style=\"color: #888; font-style: italic;\">Note: In modern browsers with JS enabled, content inside &lt;noscript&gt; is hidden unless you close the tag with &lt;/noscript&gt;.</p>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Close the <code>&lt;noscript&gt;</code> tag using <code>&lt;/noscript&gt;</code>.",
+        "Inject a script payload that executes even when JavaScript is enabled.",
+        "Understand how browsers parse content inside NOSCRIPT elements."
+    ],
+    "hints": [
+        "When JS is enabled, the browser ignores tags inside NOSCRIPT until it sees <code>&lt;/noscript&gt;</code>.",
+        "Break out: <code>&lt;/noscript&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

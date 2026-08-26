@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - Head",
+    "description": "The parameter is echoed within the HEAD tag. Payloads can inject meta tags or script elements into the head.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : '<!-- default head param -->';\n?>\n<!DOCTYPE html>\n<html>\n<head>\n    <!-- INJECTION POINT: echoed inside <head> tag -->\n    <?php echo $input; ?>\n    <title>Parameter - Head Injection</title>\n</head>\n<body>\n    <h3>Parameter - Head Tag Injection</h3>\n    <p>The <code>q</code> parameter is echoed directly within the <code>&lt;head&gt;</code> tag without any escaping.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ The parameter is injected into the <code>&lt;head&gt;</code> tag above (inspect source code to verify):</p>\n        <p>Current value in HEAD: <code><?php echo htmlspecialchars($input, ENT_QUOTES, 'UTF-8'); ?></code></p>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject a <code>&lt;script&gt;</code> tag into the HTML HEAD section.",
+        "Execute JavaScript in the context of the page.",
+        "Understand that injections inside the HEAD execute when the DOM loads."
+    ],
+    "hints": [
+        "Input lands inside <code>&lt;head&gt;</code>.",
+        "You can directly inject <code>&lt;script&gt;alert(1)&lt;/script&gt;</code>.",
+        "Check DevTools or View Page Source to see your injected tag in the HEAD."
+    ]
+}

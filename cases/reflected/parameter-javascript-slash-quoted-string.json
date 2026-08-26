@@ -1,0 +1,19 @@
+{
+    "title": "Parameter - Javascript slash quoted string",
+    "description": "Assigns the parameter value to a single slash quoted js assignment, i.e. var foo = /%q/;",
+    "category": "reflected",
+    "difficulty": "Medium",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'pattern';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Javascript Slash Quoted String</h3>\n    <p>The <code>q</code> parameter is echoed inside a JavaScript RegExp literal delimited by slashes.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected script output:</p>\n        <script>\n            // INJECTION POINT: regex literal\n            var pattern = /<?php echo $input; ?>/;\n            console.log(\"Active regex pattern:\", pattern);\n        </script>\n        <p>Regex pattern initialized in JavaScript.</p>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Terminate the RegExp literal with a forward slash <code>/</code>.",
+        "Inject executable JavaScript and comment out or balance trailing syntax.",
+        "Execute arbitrary JavaScript."
+    ],
+    "hints": [
+        "Context: <code>var pattern = /[INPUT]/;</code>.",
+        "Close the regex: <code>/; alert(1); var dummy = /</code> or <code>/i; alert(1);//</code>."
+    ]
+}

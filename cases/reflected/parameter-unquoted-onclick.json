@@ -1,0 +1,20 @@
+{
+    "title": "Parameter - unquoted onclick",
+    "description": "The parameter is echoed in an HTML event handler attribute, unquoted. i.e. <div onclick=%q>",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : \"console.log('clicked')\";\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Unquoted onclick</h3>\n    <p>The <code>q</code> parameter is echoed directly into an unquoted <code>onclick</code> attribute.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Click the button below to trigger the event handler:</p>\n        <!-- INJECTION POINT: unquoted onclick attribute -->\n        <button onclick=<?php echo $input; ?> style=\"padding: 10px 20px; background: #e94560; color: #fff; border: none; border-radius: 4px; cursor: pointer;\">\n            Click Me (Unquoted onclick)\n        </button>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Inject JavaScript directly into the unquoted onclick handler.",
+        "Alternatively, use a space to add auto-executing attributes like <code>autofocus onfocus=alert(1)</code>.",
+        "Execute arbitrary JavaScript."
+    ],
+    "hints": [
+        "Context: <code>&lt;button onclick=[INPUT]&gt;</code>.",
+        "Direct code: <code>alert(1)</code>.",
+        "Auto-fire without clicking: <code>alert(1) autofocus onfocus=alert(1)</code>."
+    ]
+}

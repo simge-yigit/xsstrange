@@ -1,0 +1,19 @@
+{
+    "title": "Parameter - Style Attribute Value",
+    "description": "The parameter is used as an attribute value, i.e. <style attribute=%q>.",
+    "category": "reflected",
+    "difficulty": "Easy",
+    "risk": "High",
+    "status": "Active",
+    "type": "php",
+    "php": "<?php\n$input = isset($_GET['q']) ? $_GET['q'] : 'text/css';\n?>\n<!DOCTYPE html>\n<html>\n<body>\n    <h3>Parameter - Style Attribute Value</h3>\n    <p>The <code>q</code> parameter is echoed inside an attribute of a <code>&lt;style&gt;</code> tag.</p>\n    <p>Param: <code>?q=</code></p>\n\n    <div style=\"margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px; background: rgba(255,255,255,0.02);\">\n        <p style=\"color: #888; font-size: 0.85em; margin-bottom: 10px;\">⬇️ Reflected output inside &lt;style&gt; tag attribute:</p>\n        <!-- INJECTION POINT: style type attribute -->\n        <style type=\"<?php echo $input; ?>\">\n            .demo-style-box { padding: 10px; border: 1px solid #00ff9d; border-radius: 4px; }\n        </style>\n        <div class=\"demo-style-box\">Sample box styled by the above tag.</div>\n    </div>\n</body>\n</html>",
+    "objectives": [
+        "Escape the attribute quotes of the <code>&lt;style&gt;</code> tag.",
+        "Close the style tag and inject executable script elements.",
+        "Understand how attributes on style tags can be exploited."
+    ],
+    "hints": [
+        "Context: <code>&lt;style type=\"[INPUT]\"&gt;</code>.",
+        "Break out with quotes and close the tag: <code>\">&lt;/style&gt;&lt;script&gt;alert(1)&lt;/script&gt;</code>."
+    ]
+}

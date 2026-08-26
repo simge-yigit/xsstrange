@@ -1,0 +1,19 @@
+{
+  "title": "PostMessage via document.write",
+  "description": "Receives messages via window postMessage without origin verification and writes the payload to the document via document.write().",
+  "objectives": [
+    "Identify the postMessage handler writing into document.write.",
+    "Deliver an HTML/script payload through event.data.",
+    "Execute arbitrary JavaScript."
+  ],
+  "hints": [
+    "The page passes event.data directly to document.write().",
+    "Send payload: window.postMessage('<img src=x onerror=alert(1)>', '*')."
+  ],
+  "difficulty": "medium",
+  "category": "dom-based",
+  "risk": "high",
+  "status": "active",
+  "type": "html",
+  "body": "<h3>PostMessage Receiver (document.write sink)</h3><p>This page listens for <code>message</code> events and writes <code>event.data</code> directly into the document.</p><div id='container' style='margin: 20px 0; padding: 20px; border: 1px dashed #555; border-radius: 8px;'><p>Waiting for postMessage...</p></div><script>\nwindow.addEventListener('message', function(event) {\n    document.write('<div>Received message: ' + event.data + '</div>');\n});\n</script>"
+}
